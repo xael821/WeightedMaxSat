@@ -32,7 +32,7 @@ public class ShuntingYard {
     }
 
     private int compare(String a, String b) {
-        if(!precedences.containsKey(a) || !precedences.containsKey(b)){
+        if (!precedences.containsKey(a) || !precedences.containsKey(b)) {
             return -1;
         }
         return Integer.compare(precedences.get(a), precedences.get(b));
@@ -72,7 +72,7 @@ public class ShuntingYard {
         return output.toString();
     }
 
-    public boolean isOperator(String op){
+    public boolean isOperator(String op) {
         return precedences.containsKey(op);
     }
 }
