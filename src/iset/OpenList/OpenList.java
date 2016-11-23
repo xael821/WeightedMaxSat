@@ -16,7 +16,7 @@ public class OpenList<E> {
         for (int i = 0; i < 5; i++) {
             list.add(i );
         }
-        OpenNode<Integer>[] r = list.remove(2);
+        OpenNode<Integer>[] r = list.remove(4);
         list.print();
         r[1].add(5);
         r[0].addNode(r[1]);
@@ -82,10 +82,11 @@ class OpenNode<E> {
 
     public void addNode(OpenNode<E> n){
         OpenNode<E> temp = hasNext ? this.next: null;
+        boolean nextnextExists = hasNext;
         hasNext = true;
         this.next = n;
         n.next.next=temp;
-        n.next.hasNext=true;
+        n.next.hasNext=nextnextExists;
     }
 
     public OpenNode<E> tail(){
