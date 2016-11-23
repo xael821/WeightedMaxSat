@@ -2,7 +2,7 @@ package iset.OpenList;
 
 /**
  * Created by aellison on 11/22/2016.
- *
+ * <p>
  * This file should be in its own package, separate from any classes that use it.
  */
 public class OpenList<E> {
@@ -14,40 +14,40 @@ public class OpenList<E> {
     public static void main(String[] args) {
         OpenList<Integer> list = new OpenList<>();
         for (int i = 0; i < 5; i++) {
-            list.add(i);
+            list.add(i );
         }
+        OpenNode<Integer>[] r = list.remove(2);
+        list.print();
+        r[1].add(5);
+        r[0].addNode(r[1]);
+
+        list.print();
     }
 
     public OpenList() {
-        head = new OpenNode<E>();
+        head = new OpenNode<E>(null);
         tail = head;
-
     }
 
     public void add(E e) {
-        if (size == 0) {
-            head.add(e);
-        } else if (size == 1) {
-            head.add(e);
-            tail = head.next();
-        } else {
-            tail.add(e);
-        }
+        head.add(e);
         size++;
     }
+
     /*
         returns the node containing the target to remove, and null if size = 0 or if target not in list.
      */
-    public OpenNode<E> remove(E target) {
-        if(size>0){
-            if(head.value() == target){
 
-            }else{
-                return head.removeFromSuccessors(target);
-            }
+    private OpenNode<E>[] remove(E target){
+        if (size > 0) {
             size--;
+            return head.removeFromSuccessors(target);
         }
         return null;
+    }
+
+    public void print() {
+        head.print();
     }
 
 }
@@ -79,6 +79,33 @@ class OpenNode<E> {
             isSet = true;
         }
     }
+
+    public void addNode(OpenNode<E> n){
+        OpenNode<E> temp = hasNext ? this.next: null;
+        hasNext = true;
+        this.next = n;
+        n.next.next=temp;
+        n.next.hasNext=true;
+    }
+
+    public OpenNode<E> tail(){
+        if(hasNext){
+            return next.tail();
+        }
+        return this;
+    }
+
+    public boolean hasNext() {
+        return hasNext;
+    }
+
+    public void print() {
+        System.out.println(value);
+        if (hasNext) {
+            next.print();
+        }
+    }
+
     //methods for use in OpenList and OpenNode - package specific.
     boolean isSet() {
         return isSet;
@@ -88,11 +115,11 @@ class OpenNode<E> {
         return next;
     }
 
-    E value(){
+    E value() {
         return value;
     }
 
-    OpenNode<E> removeSelf(){
+    OpenNode<E> removeSelf() {
         isSet = false;
         return this;
     }
@@ -101,9 +128,9 @@ class OpenNode<E> {
         returns the list node which contains the element to be removed, and removes that node from the list
         NOTE: if the item is not in the list, then it returns null
      */
-    OpenNode<E> removeFromSuccessors(E e){
+    OpenNode<E>[] removeFromSuccessors(E e) {
         OpenNode<E> out = null;
-        if(hasNext) {
+        if (hasNext) {
             if (next.value == e) {
                 out = next;
                 if (next.hasNext) {
@@ -111,23 +138,26 @@ class OpenNode<E> {
                 } else {
                     setNextNull();
                 }
-                return out;
+                out.setNextNull();
+                return new OpenNode[]{this,out};
             }
             if (hasNext) {
-                //return next.remove(e);
+                return next.removeFromSuccessors(e);
             }
         }
-        return out;
+        return new OpenNode[]{this,out};
     }
+
     //private, class internal methods
     private void createNext(E e) {
         next = new OpenNode<E>(e);
         hasNext = true;
     }
 
-    private void setNextNull(){
+    private void setNextNull() {
         next = null;
         hasNext = false;
     }
+
 
 }

@@ -24,7 +24,7 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 110;
+        int n = 50;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
@@ -102,16 +102,12 @@ public class IndependentSet {
                 int index = r.nextInt(nodes.size());
                 Node n = nodes.get(index);
                 nodes.remove(index);
-                boolean valid = true;
-                for (Node iNode : iset) {
-                    if (g.edgeExists(n, iNode)) {
-                        valid = false;
-                        break;
-                    }
+                for(Node neighbor: g.edgeLists.get(n)){
+                    nodes.remove(neighbor);
                 }
-                if (valid) {
-                    iset.add(n);
-                }
+            }
+            if(!checkIndependence(iset,g)){
+                System.out.println("!");
             }
             double score = solutionWeight(iset);
             if (score > max) {
