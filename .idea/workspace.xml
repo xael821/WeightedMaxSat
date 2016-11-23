@@ -2,31 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0761797d-b761-459a-81b1-9ce3eca706b8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iset/AVL.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iset/Graph.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iset/IndependentSet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iset/Matrices.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/iset/OpenList/OpenList.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/Solver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/WorkingSet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/And.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/And.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/BinaryOperator.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/BinaryOperator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Iff.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Iff.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Implies.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Implies.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Leaf.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Leaf.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Main.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Not.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Not.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/NotClause.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/NotClause.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Operator.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Operator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Or.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Or.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Parser.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Parser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Variable.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Variable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/untitled/main/Xor.class" afterPath="$PROJECT_DIR$/out/production/untitled/main/Xor.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Clause.java" afterPath="$PROJECT_DIR$/src/main/Clause.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Main.java" afterPath="$PROJECT_DIR$/src/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/Parser.java" afterPath="$PROJECT_DIR$/src/main/Parser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iset/AVL.java" afterPath="$PROJECT_DIR$/src/iset/AVL.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/iset/IndependentSet.java" afterPath="$PROJECT_DIR$/src/iset/IndependentSet.java" />
     </list>
     <ignored path="untitled.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,12 +28,11 @@
       <file leaf-file-name="IndependentSet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/iset/IndependentSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+            <state relative-caret-position="458">
+              <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
               <folding>
                 <element signature="method#recursion#0;class#IndependentSet#0" expanded="false" />
                 <element signature="method#estimateBound#0;class#IndependentSet#0" expanded="false" />
-                <element signature="e#6471#6477#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -64,13 +41,9 @@
       <file leaf-file-name="AVL.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/iset/AVL.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="60" column="81" selection-start-line="60" selection-start-column="81" selection-end-line="60" selection-end-column="81" />
-              <folding>
-                <element signature="e#0#5256#0" expanded="true" />
-                <element signature="e#523#524#0" expanded="true" />
-                <element signature="e#555#556#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-442">
+              <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,9 +51,12 @@
       <file leaf-file-name="TreeSet.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/TreeSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
+            <state relative-caret-position="17">
               <caret line="139" column="20" selection-start-line="139" selection-start-column="20" selection-end-line="139" selection-end-column="20" />
-              <folding />
+              <folding>
+                <element signature="e#5525#5526#0" expanded="true" />
+                <element signature="e#5572#5573#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +64,7 @@
       <file leaf-file-name="TreeMap.java" pinned="false" current-in-tab="false">
         <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/TreeMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="1615">
               <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
               <folding />
             </state>
@@ -98,16 +74,9 @@
       <file leaf-file-name="OpenList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/iset/OpenList/OpenList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="116" column="18" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
-              <folding>
-                <element signature="e#1714#1715#0" expanded="true" />
-                <element signature="e#1742#1743#0" expanded="true" />
-                <element signature="e#1768#1769#0" expanded="true" />
-                <element signature="e#1795#1796#0" expanded="true" />
-                <element signature="e#1811#1812#0" expanded="true" />
-                <element signature="e#1839#1840#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="321">
+              <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -148,10 +117,10 @@
         <option value="$PROJECT_DIR$/src/iset/Matrices.java" />
         <option value="$PROJECT_DIR$/src/KnightDialer/Knight.java" />
         <option value="$PROJECT_DIR$/src/iset/OpenList.java" />
-        <option value="$PROJECT_DIR$/src/iset/IndependentSet.java" />
         <option value="$PROJECT_DIR$/src/iset/OpenList/OpenList.java" />
-        <option value="$PROJECT_DIR$/src/iset/AVL.java" />
         <option value="$PROJECT_DIR$/src/iset/Graph.java" />
+        <option value="$PROJECT_DIR$/src/iset/IndependentSet.java" />
+        <option value="$PROJECT_DIR$/src/iset/AVL.java" />
       </list>
     </option>
   </component>
@@ -186,6 +155,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -262,7 +232,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -650,7 +619,6 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -661,17 +629,18 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767624" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39817232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32767624" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -714,7 +683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="74" column="5" selection-start-line="74" selection-start-column="5" selection-end-line="74" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -722,7 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -748,11 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,11 +722,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -772,7 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -780,7 +736,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -806,11 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -818,11 +768,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -830,7 +775,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1241">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -856,11 +800,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -868,11 +807,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -880,7 +814,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,11 +839,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -918,11 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -948,11 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -960,11 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1003,7 +916,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="748">
           <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1033,12 +945,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
           <caret line="48" column="51" selection-start-line="48" selection-start-column="51" selection-end-line="48" selection-end-column="51" />
-          <folding>
-            <element signature="e#1335#1336#0" expanded="false" />
-            <element signature="e#1374#1375#0" expanded="false" />
-            <element signature="e#1404#1405#0" expanded="false" />
-            <element signature="e#1426#1427#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1069,11 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1360">
           <caret line="105" column="5" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2154#2155#0" expanded="false" />
-            <element signature="e#2182#2183#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1094,7 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1102,11 +1002,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
           <caret line="48" column="30" selection-start-line="48" selection-start-column="30" selection-end-line="48" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#precedenceTest#0;class#Parser#0" expanded="false" />
-            <element signature="method#defaultOps#0;class#Parser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1114,7 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
           <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1128,16 +1022,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/KnightDialer/Knight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/KnightDialer/Knight.java" />
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/TreeMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="1615">
           <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
           <folding />
         </state>
@@ -1147,15 +1035,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="48" column="6" selection-start-line="48" selection-start-column="6" selection-end-line="48" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/TreeSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="139" column="20" selection-start-line="139" selection-start-column="20" selection-end-line="139" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1163,56 +1042,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="135" column="30" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iset/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1309">
-          <caret line="81" column="54" selection-start-line="81" selection-start-column="54" selection-end-line="81" selection-end-column="54" />
-          <folding>
-            <element signature="e#1865#1866#0" expanded="true" />
-            <element signature="e#1926#1927#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/iset/OpenList/OpenList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="116" column="18" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
-          <folding>
-            <element signature="e#1714#1715#0" expanded="true" />
-            <element signature="e#1742#1743#0" expanded="true" />
-            <element signature="e#1768#1769#0" expanded="true" />
-            <element signature="e#1795#1796#0" expanded="true" />
-            <element signature="e#1811#1812#0" expanded="true" />
-            <element signature="e#1839#1840#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="246">
+          <caret line="44" column="25" selection-start-line="44" selection-start-column="25" selection-end-line="44" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iset/AVL.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="60" column="81" selection-start-line="60" selection-start-column="81" selection-end-line="60" selection-end-column="81" />
+        <state relative-caret-position="-442">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/iset/OpenList/OpenList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="97" column="5" selection-start-line="97" selection-start-column="5" selection-end-line="97" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/util/TreeSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="139" column="20" selection-start-line="139" selection-start-column="20" selection-end-line="139" selection-end-column="20" />
           <folding>
-            <element signature="e#0#5256#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
+            <element signature="e#5525#5526#0" expanded="true" />
+            <element signature="e#5572#5573#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iset/IndependentSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
+        <state relative-caret-position="458">
+          <caret line="66" column="9" selection-start-line="66" selection-start-column="9" selection-end-line="66" selection-end-column="9" />
           <folding>
             <element signature="method#recursion#0;class#IndependentSet#0" expanded="false" />
             <element signature="method#estimateBound#0;class#IndependentSet#0" expanded="false" />
-            <element signature="e#6471#6477#0" expanded="true" />
           </folding>
         </state>
       </provider>
