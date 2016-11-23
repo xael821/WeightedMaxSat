@@ -97,6 +97,10 @@ class Variable {
         this(identifier, false);
     }
 
+    public void setValue(boolean value){
+        this.value=value;
+    }
+
     public boolean evaluate() {
         return value;
     }
