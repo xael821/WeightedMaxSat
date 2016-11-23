@@ -9,7 +9,7 @@
  */
 package iset;
 
-public class AVL<E extends Comparable<? super E>> implements Iterable<Node> {
+public class AVL<E extends Comparable<? super E>> {
 
     AVL left, right;
     //IF YOU EDIT ME TAKE NOTE OF PROPER USE OF ASSIGNED

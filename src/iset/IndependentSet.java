@@ -60,12 +60,7 @@ public class IndependentSet {
         long time = System.currentTimeMillis();
         best = estimateBound(g, g.nodeList().size());
         System.out.println(best);
-
-        AVL<Node> complement = new AVL<>();
-        for(Node c : g.nodeSet()){
-            complement.add(c);
-        }
-        solve(new LinkedList<>(),complement, g, -1);
+        solve(new LinkedList<>(), g.nodeList(), g, -1);
         System.out.println("time(ms): " + (System.currentTimeMillis() - time));
     }
 
@@ -126,7 +121,7 @@ public class IndependentSet {
         return max;
     }
 
-    private void solve(LinkedList<Node> solution, AVL<Node> complement, Graph g, int returnIndex) {
+    private void solve(LinkedList<Node> solution, LinkedList<Node> complement, Graph g, int returnIndex) {
 
         //printSolution(solution);
         //if the best this could be isn't an improvement, return
