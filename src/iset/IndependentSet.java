@@ -6,6 +6,9 @@ package iset;
 
 import java.util.*;
 
+import iset.OpenList.*;
+import main.S;
+
 public class IndependentSet {
 
     // http://www8.cs.umu.se/kurser/5DA001/HT08/lab2.pdf
@@ -16,7 +19,6 @@ public class IndependentSet {
     Collection<Node> bestSolution;
     double[] firstNSum;
 
-
     public IndependentSet() {
         bestSolution = new LinkedList<Node>();
     }
@@ -24,7 +26,7 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 50;
+        int n = 10;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
@@ -59,8 +61,14 @@ public class IndependentSet {
         }
         long time = System.currentTimeMillis();
         best = estimateBound(g, g.nodeList().size());
-        System.out.println(best);
-        solve(new LinkedList<>(), g.nodeList(), g, -1);
+
+        g.generateEdgeLists();
+        g.sortEdgeLists();
+        Node[] nodeArr = g.nodeArray();
+        Arrays.sort(nodeArr);
+        OpenList<Node> complement = new OpenList<>(nodeArr);
+
+        solve(new LinkedList<>(), complement, g);
         System.out.println("time(ms): " + (System.currentTimeMillis() - time));
     }
 
@@ -102,11 +110,11 @@ public class IndependentSet {
                 int index = r.nextInt(nodes.size());
                 Node n = nodes.get(index);
                 nodes.remove(index);
-                for(Node neighbor: g.edgeLists.get(n)){
+                for (Node neighbor : g.edgeSets.get(n)) {
                     nodes.remove(neighbor);
                 }
             }
-            if(!checkIndependence(iset,g)){
+            if (!checkIndependence(iset, g)) {
                 System.out.println("!");
             }
             double score = solutionWeight(iset);
@@ -117,15 +125,20 @@ public class IndependentSet {
         return max;
     }
 
-    private void solve(LinkedList<Node> solution, LinkedList<Node> complement, Graph g, int returnIndex) {
-
-        //printSolution(solution);
+    private void solve(LinkedList<Node> solution, OpenList<Node> complement, Graph g) {
+        printSolution(solution);
         //if the best this could be isn't an improvement, return
 
         //if we add n to the solution, we can remove n and all its neighbors from complement. All the neighbors maybe could be stuck in a list that's the method's
         //return value which are then added back.
         //better: return a hashmap of openlist nodes which allow you to add them all back each in constant time.
-        boolean condition = best < upperBound(solution, complement, g);
+        boolean condition = true;//best < upperBound(solution, complement, g);
+
+        //storing this as it changes.. it should be the same by the time it's checked but want to be sure.
+        int complementSize = complement.size();
+        int startIndex = 0;
+        //initialize it as big as it could possibly need to be so we don't need to wait for resizing
+        HashMap<Node, OpenNode<Node>[]> restoreMap = new HashMap<>(complementSize - startIndex);
         if (condition) {
 
             //if the actual current weight of this solution is a best, save it
@@ -136,12 +149,9 @@ public class IndependentSet {
                 bestSolution.addAll(solution);
             }
 
-            //storing this as it changes.. it should be the same by the time it's checked but want to be sure.
-            int complementSize = complement.size();
-            int startIndex = returnIndex < 0 ? 0 : returnIndex;
 
             for (int i = startIndex; i < complementSize; i++) {
-                Node next = complement.get(i);
+                Node next = complement.getIndex(i);
                 boolean independent = true;
 
                 for (Node current : solution) {
@@ -153,18 +163,72 @@ public class IndependentSet {
 
                 if (independent) {
                     solution.addLast(next);
-                    complement.remove(next);
-                    solve(solution, complement, g, i);
+                    OpenNode<Node>[] restorePair = complement.remove(next);
+                    restoreMap.put(next, restorePair);
+                    makeRestore(restoreMap, next, complement, g);
+                    solve(solution, complement, g);
                 }
             }
         }
         //when this returns, put the node inserted to solution back in candidate pool
+        if (solution.size() > 0) {
+            solution.removeLast();
+        }
+        try {
+            restore(restoreMap);
+        }catch(Exception e){
+            System.out.println("!");
+            throw new RuntimeException(e);
+        }
+    }
 
-        if (returnIndex >= 0) {
-            Node n = solution.removeLast();
-            complement.add(returnIndex, n);
+    /*
+        fills the provided map with key value pairs of graph Nodes to OpenList restore pairs, a pair exists
+        for the node remove, as well as everything connected to it in graph
+
+     */
+    private void makeRestore(HashMap<Node, OpenNode<Node>[]> restoreMap, Node remove, OpenList<Node> complement, Graph g) {
+        List<Node> neighbors = g.edgeLists.get(remove);
+        ArrayList<Node> intersection = intersection(neighbors, complement);
+        for (Node n : intersection) {
+            restoreMap.put(n, complement.remove(n));
+        }
+    }
+
+    //assumes unique values in each list
+    private ArrayList<Node> intersection(List<Node> L1, OpenList<Node> L2) {
+        //intersection not smaller than the smaller list
+        ArrayList<Node> out = new ArrayList<>(Math.min(L1.size(), L2.size()));
+
+        Iterator<Node> I1 = L1.iterator();
+        OpenIterator<Node> I2 = (OpenIterator<Node>) L2.iterator();
+
+        Node n1 = I1.next();
+        Node n2 = I2.next();
+        int index = 0;
+        while (I1.hasNext() && I2.hasNext()) {
+            int comparison = n1.compareTo(n2);
+            if (comparison < 0) {
+                n1 = I1.next();
+            } else if (comparison > 0) {
+                n2 = I2.next();
+            } else {
+                out.add(index, n1);
+                I1.next();
+                I2.next();
+                index++;
+            }
         }
 
+        return out;
+    }
+
+    private void restore(HashMap<Node, OpenNode<Node>[]> restoreMap) {
+        OpenNode<Node>[] pair;
+        for (Node node : restoreMap.keySet()) {
+            pair = restoreMap.get(node);
+            pair[0].addNode(pair[1]);
+        }
     }
 
     private static void printSolution(Collection<Node> solution) {

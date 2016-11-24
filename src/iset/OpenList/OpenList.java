@@ -1,11 +1,14 @@
 package iset.OpenList;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Created by aellison on 11/22/2016.
  * <p>
  * This file should be in its own package, separate from any classes that use it.
  */
-public class OpenList<E> {
+public class OpenList<E> implements Iterable<E>{
 
     OpenNode<E> head;
     OpenNode<E> tail;
@@ -29,6 +32,13 @@ public class OpenList<E> {
         tail = head;
     }
 
+
+    public OpenList(E[] arr){
+        this();
+        size = arr.length;
+        head.add(arr,0);
+    }
+
     public void add(E e) {
         head.add(e);
         size++;
@@ -38,7 +48,8 @@ public class OpenList<E> {
         returns the node containing the target to remove, and null if size = 0 or if target not in list.
      */
 
-    private OpenNode<E>[] remove(E target){
+    public OpenNode<E>[] remove(E target){
+        int size = size();
         if (size > 0) {
             size--;
             return head.removeFromSuccessors(target);
@@ -50,115 +61,33 @@ public class OpenList<E> {
         head.print();
     }
 
-}
 
-class OpenNode<E> {
+  //  public int size(){
+    //    return size;
+    //}
 
-    private E value;
-    private OpenNode<E> next;
-    private boolean isSet = false;
-    private boolean hasNext = false;
-
-    public OpenNode() {
-    }
-
-    public OpenNode(E e) {
-        value = e;
-        isSet = true;
-    }
-
-    public void add(E e) {
-        if (isSet) {
-            if (hasNext) {
-                next.add(e);
-            } else {
-                createNext(e);
-            }
-        } else {
-            value = e;
-            isSet = true;
+    public E getIndex(int index){
+        OpenNode<E> temp = head;
+        //dummy is at -1 effectively
+        index++;
+        while(temp.hasNext() && index>0){
+            temp = temp.next();
+            index--;
         }
+        return temp.value();
     }
 
-    public void addNode(OpenNode<E> n){
-        OpenNode<E> temp = hasNext ? this.next: null;
-        boolean nextnextExists = hasNext;
-        hasNext = true;
-        this.next = n;
-        n.next.next=temp;
-        n.next.hasNext=nextnextExists;
-    }
-
-    public OpenNode<E> tail(){
-        if(hasNext){
-            return next.tail();
+    public int size(){
+        int out = 0;
+        OpenNode<E> temp  = head.next();
+        while(temp!=null){
+            out++;
+            temp= temp.next();
         }
-        return this;
+        return out;
     }
 
-    public boolean hasNext() {
-        return hasNext;
+    public Iterator<E> iterator(){
+        return new OpenIterator<E>(this);
     }
-
-    public void print() {
-        System.out.println(value);
-        if (hasNext) {
-            next.print();
-        }
-    }
-
-    //methods for use in OpenList and OpenNode - package specific.
-    boolean isSet() {
-        return isSet;
-    }
-
-    OpenNode<E> next() {
-        return next;
-    }
-
-    E value() {
-        return value;
-    }
-
-    OpenNode<E> removeSelf() {
-        isSet = false;
-        return this;
-    }
-
-    /*  if the parameter is found in any node after this one, then it will be removed.
-        returns the list node which contains the element to be removed, and removes that node from the list
-        NOTE: if the item is not in the list, then it returns null
-     */
-    OpenNode<E>[] removeFromSuccessors(E e) {
-        OpenNode<E> out = null;
-        if (hasNext) {
-            if (next.value == e) {
-                out = next;
-                if (next.hasNext) {
-                    next = next.next;
-                } else {
-                    setNextNull();
-                }
-                out.setNextNull();
-                return new OpenNode[]{this,out};
-            }
-            if (hasNext) {
-                return next.removeFromSuccessors(e);
-            }
-        }
-        return new OpenNode[]{this,out};
-    }
-
-    //private, class internal methods
-    private void createNext(E e) {
-        next = new OpenNode<E>(e);
-        hasNext = true;
-    }
-
-    private void setNextNull() {
-        next = null;
-        hasNext = false;
-    }
-
-
 }

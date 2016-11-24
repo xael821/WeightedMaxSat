@@ -8,31 +8,52 @@ import java.util.*;
 class Graph {
 
     HashMap<String, Node> nodes;
-    HashMap<Node, HashSet<Node>> edgeLists;
+    HashMap<Node, HashSet<Node>> edgeSets;
+    HashMap<Node, List<Node>> edgeLists;
 
     public Graph() {
         nodes = new HashMap<>();
+        edgeSets = new HashMap<>();
         edgeLists = new HashMap<>();
     }
 
     public void add(String u, String v) {
+        if(u.equals(v)){
+            return;
+        }
         Node U, V;
         if (!nodes.containsKey(u)) {
             Node temp = new Node(u);
             nodes.put(u, temp);
-            edgeLists.put(temp, new HashSet<>());
+            edgeSets.put(temp, new HashSet<>());
         }
         U = nodes.get(u);
 
         if (!nodes.containsKey(v)) {
             Node temp = new Node(v);
             nodes.put(v, temp);
-            edgeLists.put(temp, new HashSet<>());
+            edgeSets.put(temp, new HashSet<>());
         }
         V = nodes.get(v);
         //we now have U,V defined in both hashmaps, so no null exceptions should occur.
-        edgeLists.get(V).add(U);
-        edgeLists.get(U).add(V);
+        edgeSets.get(V).add(U);
+        edgeSets.get(U).add(V);
+    }
+
+    public void generateEdgeLists() {
+        for (Node n : edgeSets.keySet()) {
+            LinkedList<Node> list = new LinkedList<>();
+            list.addAll(edgeSets.get(n));
+            edgeLists.put(n, list);
+        }
+    }
+
+    public void sortEdgeLists(){
+        for(Node n : edgeLists.keySet()){
+            Node[] arr = edgeLists.get(n).toArray(new Node[0]);
+            Arrays.sort(arr);
+            edgeLists.put(n, Arrays.asList(arr));
+        }
     }
 
     public LinkedList<Node> nodeList() {
@@ -49,13 +70,17 @@ class Graph {
         return out;
     }
 
+    public Node[] nodeArray(){
+        return nodes.values().toArray(new Node[0]);
+    }
+
     public boolean edgeExists(Node node1, Node node2) {
-        return edgeLists.get(node1).contains(node2);
+        return edgeSets.get(node1).contains(node2);
     }
 
     public int m() {
         int out = 0;
-        for (HashSet<Node> edgeList : edgeLists.values()) {
+        for (HashSet<Node> edgeList : edgeSets.values()) {
             out += edgeList.size();
         }
         out /= 2;
