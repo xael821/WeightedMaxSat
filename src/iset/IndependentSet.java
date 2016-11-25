@@ -27,7 +27,7 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 10;
+        int n = 50;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
@@ -127,18 +127,14 @@ public class IndependentSet {
     }
 
     private void solve(LinkedList<Node> solution, RestoreList<Node> complement, Graph g) {
-        System.out.println(solution.size()+" "+complement.size());
-        //printSolution(solution);
         //if the best this could be isn't an improvement, return
 
         //if we add n to the solution, we can remove n and all its neighbors from complement. All the neighbors maybe could be stuck in a list that's the method's
         //return value which are then added back.
         //better: return a hashmap of openlist nodes which allow you to add them all back each in constant time.
-        boolean condition = true;//best < upperBound(solution, complement, g);
+        boolean condition = best < upperBound(solution, complement, g);
 
         //storing this as it changes.. it should be the same by the time it's checked but want to be sure.
-        int complementSize = complement.size();
-        int startIndex = 0;
 
         if (condition) {
 
@@ -150,12 +146,14 @@ public class IndependentSet {
                 bestSolution.addAll(solution);
             }
 
-            for (int i = startIndex; i < complementSize; i++) {
-                Node next = complement.getIndex(i);
+            Iterator<Node> nexts = complement.iterator();
+            while (nexts.hasNext()) {
+                Node next = nexts.next();
                 boolean independent = true;
 
                 for (Node current : solution) {
                     if (g.edgeExists(current, next)) {
+                        //     System.out.println("you needed me");
                         independent = false;
                         break;
                     }
@@ -163,10 +161,11 @@ public class IndependentSet {
 
                 if (independent) {
                     solution.addLast(next);
-                    System.out.println("csize "+complement.size()+" "+i);
-                    if(makeRestore(next, complement, g)) {
+                    makeRestore(next, complement, g);
+                    if (complement.size() > 0) {
                         solve(solution, complement, g);
                     }
+                    complement.rollback();
                 }
             }
         }
@@ -174,7 +173,6 @@ public class IndependentSet {
         if (solution.size() > 0) {
             solution.removeLast();
         }
-        complement.rollback();
     }
 
     /*
@@ -184,25 +182,24 @@ public class IndependentSet {
      */
     private boolean makeRestore(Node remove, RestoreList<Node> complement, Graph g) {
         List<Node> neighbors = g.edgeLists.get(remove);
-        if(neighbors==null){
-            System.out.println("failed for "+remove);
+        if (neighbors == null) {
+            System.out.println("failed for " + remove);
         }
         ArrayList<Node> intersection = intersection(neighbors, complement);
         complement.openTransaction();
-        for(Node n: intersection){
+        for (Node n : intersection) {
             complement.remove(n);
         }
+        complement.remove(remove);
+
         complement.closeTransaction();
-        return intersection.size()>0;
+        return intersection.size() > 0;
     }
 
     //assumes unique values in each list
     private ArrayList<Node> intersection(List<Node> L1, RestoreList<Node> L2) {
-        System.out.println("intersection");
         //intersection not smaller than the smaller list
-        if(L1==null){
-            System.out.println("!");
-        }
+
         ArrayList<Node> out = new ArrayList<>(Math.min(L1.size(), L2.size()));
 
         Iterator<Node> I1 = L1.iterator();
@@ -212,7 +209,6 @@ public class IndependentSet {
         Node n2 = I2.next();
         int index = 0;
         while (I1.hasNext() && I2.hasNext()) {
-            System.out.println(n1.identifier+" "+n2.identifier);
             int comparison = n1.compareTo(n2);
             if (comparison < 0) {
                 n1 = I1.next();
@@ -225,7 +221,6 @@ public class IndependentSet {
                 index++;
             }
         }
-        System.out.println("intersection size: "+out.size());
         return out;
     }
 
@@ -238,6 +233,7 @@ public class IndependentSet {
     }
 
     private static void printSolution(Collection<Node> solution) {
+        System.out.println("solution: ");
         for (Node n : solution) {
             System.out.print(n.identifier + " ");
         }
@@ -252,7 +248,7 @@ public class IndependentSet {
         return out;
     }
 
-    private double upperBound(LinkedList<Node> solution, LinkedList<Node> complement, Graph g) {
+    private double upperBound(LinkedList<Node> solution, RestoreList<Node> complement, Graph g) {
         int n = 0, m = 0;
         double baseLine = solutionWeight(solution);
 

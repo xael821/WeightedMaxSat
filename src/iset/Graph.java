@@ -106,4 +106,8 @@ class Node implements Comparable<Node> {
     public int compareTo(Node other){
         return identifier.compareTo(other.identifier);
     }
+
+    public String toString(){
+        return identifier;
+    }
 }

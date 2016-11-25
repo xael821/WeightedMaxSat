@@ -8,7 +8,7 @@ import java.util.*;
  * once this is working in the iset algorithm with get(int) optimize by creating publically available 'access points'
  * that let you access certain nodes in an API ish way
  */
-public class RestoreList<E> {
+public class RestoreList<E> implements  Iterable<E>{
 
     private LinkedList<HashMap<RLNode<E>, RLNode<E>>> restoreStack;
     private LinkedList<Integer> txnSizeStack;
@@ -44,7 +44,7 @@ public class RestoreList<E> {
         L.print();
     }
 
-    void print(){
+    public void print(){
         System.out.print("size = "+size+": ");
         RLNode<E> temp = dummy.next;
         while(temp!=null){
