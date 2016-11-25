@@ -149,7 +149,6 @@ public class IndependentSet {
                 bestSolution.addAll(solution);
             }
 
-
             for (int i = startIndex; i < complementSize; i++) {
                 Node next = complement.getIndex(i);
                 boolean independent = true;
@@ -214,8 +213,8 @@ public class IndependentSet {
                 n2 = I2.next();
             } else {
                 out.add(index, n1);
-                I1.next();
-                I2.next();
+                n1 = I1.next();
+                n2 = I2.next();
                 index++;
             }
         }
