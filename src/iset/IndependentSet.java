@@ -7,6 +7,7 @@ package iset;
 import java.util.*;
 
 import iset.OpenList.*;
+import iset.RestoreList.RestoreList;
 import main.S;
 
 public class IndependentSet {
@@ -66,7 +67,7 @@ public class IndependentSet {
         g.sortEdgeLists();
         Node[] nodeArr = g.nodeArray();
         Arrays.sort(nodeArr);
-        OpenList<Node> complement = new OpenList<>(nodeArr);
+        RestoreList<Node> complement = new RestoreList<>(nodeArr);
 
         solve(new LinkedList<>(), complement, g);
         System.out.println("time(ms): " + (System.currentTimeMillis() - time));
@@ -125,8 +126,9 @@ public class IndependentSet {
         return max;
     }
 
-    private void solve(LinkedList<Node> solution, OpenList<Node> complement, Graph g) {
-        printSolution(solution);
+    private void solve(LinkedList<Node> solution, RestoreList<Node> complement, Graph g) {
+        System.out.println(solution.size()+" "+complement.size());
+        //printSolution(solution);
         //if the best this could be isn't an improvement, return
 
         //if we add n to the solution, we can remove n and all its neighbors from complement. All the neighbors maybe could be stuck in a list that's the method's
@@ -137,8 +139,7 @@ public class IndependentSet {
         //storing this as it changes.. it should be the same by the time it's checked but want to be sure.
         int complementSize = complement.size();
         int startIndex = 0;
-        //initialize it as big as it could possibly need to be so we don't need to wait for resizing
-        HashMap<Node, OpenNode<Node>[]> restoreMap = new HashMap<>(complementSize - startIndex);
+
         if (condition) {
 
             //if the actual current weight of this solution is a best, save it
@@ -162,10 +163,10 @@ public class IndependentSet {
 
                 if (independent) {
                     solution.addLast(next);
-                    OpenNode<Node>[] restorePair = complement.remove(next);
-                    restoreMap.put(next, restorePair);
-                    makeRestore(restoreMap, next, complement, g);
-                    solve(solution, complement, g);
+                    System.out.println("csize "+complement.size()+" "+i);
+                    if(makeRestore(next, complement, g)) {
+                        solve(solution, complement, g);
+                    }
                 }
             }
         }
@@ -173,12 +174,7 @@ public class IndependentSet {
         if (solution.size() > 0) {
             solution.removeLast();
         }
-        try {
-            restore(restoreMap);
-        }catch(Exception e){
-            System.out.println("!");
-            throw new RuntimeException(e);
-        }
+        complement.rollback();
     }
 
     /*
@@ -186,26 +182,37 @@ public class IndependentSet {
         for the node remove, as well as everything connected to it in graph
 
      */
-    private void makeRestore(HashMap<Node, OpenNode<Node>[]> restoreMap, Node remove, OpenList<Node> complement, Graph g) {
+    private boolean makeRestore(Node remove, RestoreList<Node> complement, Graph g) {
         List<Node> neighbors = g.edgeLists.get(remove);
-        ArrayList<Node> intersection = intersection(neighbors, complement);
-        for (Node n : intersection) {
-            restoreMap.put(n, complement.remove(n));
+        if(neighbors==null){
+            System.out.println("failed for "+remove);
         }
+        ArrayList<Node> intersection = intersection(neighbors, complement);
+        complement.openTransaction();
+        for(Node n: intersection){
+            complement.remove(n);
+        }
+        complement.closeTransaction();
+        return intersection.size()>0;
     }
 
     //assumes unique values in each list
-    private ArrayList<Node> intersection(List<Node> L1, OpenList<Node> L2) {
+    private ArrayList<Node> intersection(List<Node> L1, RestoreList<Node> L2) {
+        System.out.println("intersection");
         //intersection not smaller than the smaller list
+        if(L1==null){
+            System.out.println("!");
+        }
         ArrayList<Node> out = new ArrayList<>(Math.min(L1.size(), L2.size()));
 
         Iterator<Node> I1 = L1.iterator();
-        OpenIterator<Node> I2 = (OpenIterator<Node>) L2.iterator();
+        Iterator<Node> I2 = L2.iterator();
 
         Node n1 = I1.next();
         Node n2 = I2.next();
         int index = 0;
         while (I1.hasNext() && I2.hasNext()) {
+            System.out.println(n1.identifier+" "+n2.identifier);
             int comparison = n1.compareTo(n2);
             if (comparison < 0) {
                 n1 = I1.next();
@@ -218,7 +225,7 @@ public class IndependentSet {
                 index++;
             }
         }
-
+        System.out.println("intersection size: "+out.size());
         return out;
     }
 

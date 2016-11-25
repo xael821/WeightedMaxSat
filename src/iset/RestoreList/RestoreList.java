@@ -13,7 +13,8 @@ public class RestoreList<E> {
     private LinkedList<HashMap<RLNode<E>, RLNode<E>>> restoreStack;
     private LinkedList<Integer> txnSizeStack;
     private HashMap<RLNode<E>, RLNode<E>> currentTransaction;
-    private RLNode<E> dummy = new RLNode<E>();
+    //needs package access for iterator
+    RLNode<E> dummy = new RLNode<E>();
     private int size;
     private int currentTxnSize = 0;
 
@@ -107,6 +108,17 @@ public class RestoreList<E> {
         }
     }
 
+    public E getIndex(int i){
+        return dummy.get(i+1);
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public Iterator<E> iterator(){
+        return new RLIterator<E>(this);
+    }
 }
 
 class RLNode<E> {
@@ -118,6 +130,16 @@ class RLNode<E> {
 
     public RLNode(E e) {
         value = e;
+    }
+
+    E get(int i){
+        if(i==0){
+            return value;
+        }
+        if(next!=null){
+            return next.get(i-1);
+        }
+        return null;
     }
 
     void insertNext(RLNode<E> node) {
@@ -143,7 +165,6 @@ class RLNode<E> {
         }
         return null;
     }
-
 }
 
 class RemovalPair<E> {
@@ -153,4 +174,22 @@ class RemovalPair<E> {
         this.n1 = n1;
         this.n2 = n2;
     }
+}
+
+class RLIterator<E> implements Iterator<E>{
+    RLNode<E> current;
+
+    RLIterator(RestoreList list){
+        current = list.dummy;
+    }
+
+    public E next(){
+        current = current.next;
+        return current.value;
+    }
+
+    public boolean hasNext(){
+        return current.next!=null;
+    }
+
 }
