@@ -40,6 +40,7 @@ class Graph {
         edgeSets.get(U).add(V);
     }
 
+
     public void generateEdgeLists() {
         for (Node n : edgeSets.keySet()) {
             LinkedList<Node> list = new LinkedList<>();
@@ -75,6 +76,9 @@ class Graph {
     }
 
     public boolean edgeExists(Node node1, Node node2) {
+        if(edgeSets.get(node1).contains(node2) != edgeSets.get(node2).contains(node1)){
+            System.out.println("!!!!!!!!11");
+        }
         return edgeSets.get(node1).contains(node2);
     }
 

@@ -8,7 +8,7 @@ import java.util.*;
  * once this is working in the iset algorithm with get(int) optimize by creating publically available 'access points'
  * that let you access certain nodes in an API ish way
  */
-public class RestoreList<E> implements  Iterable<E>{
+public class RestoreList<E> implements Iterable<E> {
 
     private LinkedList<HashMap<RLNode<E>, RLNode<E>>> restoreStack;
     private LinkedList<Integer> txnSizeStack;
@@ -44,17 +44,17 @@ public class RestoreList<E> implements  Iterable<E>{
         L.print();
     }
 
-    public void print(){
-        System.out.print("size = "+size+": ");
+    public void print() {
+        System.out.print("size = " + size + ": ");
         RLNode<E> temp = dummy.next;
-        while(temp!=null){
-            System.out.print(temp.value+" ");
+        while (temp != null) {
+            System.out.print(temp.value + " ");
             temp = temp.next;
         }
         System.out.println();
     }
 
-    public RestoreList(){
+    public RestoreList() {
         restoreStack = new LinkedList<>();
         currentTransaction = new HashMap<>();
         txnSizeStack = new LinkedList<>();
@@ -70,7 +70,7 @@ public class RestoreList<E> implements  Iterable<E>{
         }
     }
 
-    public void openTransaction(){
+    public void openTransaction() {
         currentTxnSize = 0;
     }
 
@@ -89,7 +89,7 @@ public class RestoreList<E> implements  Iterable<E>{
         size--;
     }
 
-    public void rollback(){
+    public void rollback() {
         restore(txnSizeStack.pop());
     }
 
@@ -102,22 +102,36 @@ public class RestoreList<E> implements  Iterable<E>{
         size++;
     }
 
-    void restore(int n){
-        for(int i = 0; i<n && !restoreStack.isEmpty(); i++){
+    void restore(int n) {
+        for (int i = 0; i < n && !restoreStack.isEmpty(); i++) {
             restore();
         }
     }
 
-    public E getIndex(int i){
-        return dummy.get(i+1);
+    public E getIndex(int i) {
+        return dummy.get(i + 1);
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
-    public Iterator<E> iterator(){
+    public Iterator<E> iterator() {
         return new RLIterator<E>(this);
+    }
+
+    public ArrayList<E> intersection(List<E> other) {
+        ArrayList<E> out = new ArrayList<E>(size);
+        if (size > 0) {
+
+            RLNode<E> temp = dummy.next;
+            Iterator<E> I = other.iterator();
+
+            while (I.hasNext()) {
+
+            }
+        }
+        return out;
     }
 }
 
@@ -132,12 +146,12 @@ class RLNode<E> {
         value = e;
     }
 
-    E get(int i){
-        if(i==0){
+    E get(int i) {
+        if (i == 0) {
             return value;
         }
-        if(next!=null){
-            return next.get(i-1);
+        if (next != null) {
+            return next.get(i - 1);
         }
         return null;
     }
@@ -176,20 +190,31 @@ class RemovalPair<E> {
     }
 }
 
-class RLIterator<E> implements Iterator<E>{
+class RLIterator<E> implements Iterator<E> {
     RLNode<E> current;
+    boolean invalid = false;
 
-    RLIterator(RestoreList list){
-        current = list.dummy;
+    RLIterator(RestoreList list) {
+        if (list.dummy == null) {
+            invalid = true;
+        } else if (list.dummy.next == null) {
+            invalid = true;
+        } else {
+            current = list.dummy.next;
+        }
     }
 
-    public E next(){
+    public E next() {
+        E out = current.value;
         current = current.next;
-        return current.value;
+        return out;
     }
 
-    public boolean hasNext(){
-        return current.next!=null;
+    public boolean hasNext() {
+        if (invalid) {
+            return false;
+        }
+        return current != null;
     }
 
 }

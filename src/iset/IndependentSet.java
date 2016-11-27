@@ -27,7 +27,7 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 50;
+        int n = 10;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
@@ -146,14 +146,15 @@ public class IndependentSet {
                 bestSolution.addAll(solution);
             }
 
-            Iterator<Node> nexts = complement.iterator();
-            while (nexts.hasNext()) {
-                Node next = nexts.next();
+            //special iterator that allows modification during traversal
+            Iterator<Node> complementNodes = complement.iterator();
+            while (complementNodes.hasNext()) {
+                Node next = complementNodes.next();
                 boolean independent = true;
 
                 for (Node current : solution) {
                     if (g.edgeExists(current, next)) {
-                        //     System.out.println("you needed me");
+                        System.out.println("you needed me");
                         independent = false;
                         break;
                     }
@@ -165,14 +166,13 @@ public class IndependentSet {
                     if (complement.size() > 0) {
                         solve(solution, complement, g);
                     }
+
+                    solution.removeLast();
                     complement.rollback();
                 }
             }
         }
-        //when this returns, put the node inserted to solution back in candidate pool
-        if (solution.size() > 0) {
-            solution.removeLast();
-        }
+
     }
 
     /*
@@ -180,7 +180,7 @@ public class IndependentSet {
         for the node remove, as well as everything connected to it in graph
 
      */
-    private boolean makeRestore(Node remove, RestoreList<Node> complement, Graph g) {
+    private void makeRestore(Node remove, RestoreList<Node> complement, Graph g) {
         List<Node> neighbors = g.edgeLists.get(remove);
         if (neighbors == null) {
             System.out.println("failed for " + remove);
@@ -193,34 +193,50 @@ public class IndependentSet {
         complement.remove(remove);
 
         complement.closeTransaction();
-        return intersection.size() > 0;
+    }
+
+    private ArrayList<Node> intersection2(List<Node> L1, RestoreList<Node> L2){
+        ArrayList<Node> out = new ArrayList<>();
+        for(Node n : L2){
+            if(L1.contains(n)){
+                out.add(n);
+            }
+        }
+        return out;
     }
 
     //assumes unique values in each list
     private ArrayList<Node> intersection(List<Node> L1, RestoreList<Node> L2) {
         //intersection not smaller than the smaller list
-
-        ArrayList<Node> out = new ArrayList<>(Math.min(L1.size(), L2.size()));
+        System.out.println("intersection:");
+        ArrayList<Node> out = new ArrayList<>();
 
         Iterator<Node> I1 = L1.iterator();
         Iterator<Node> I2 = L2.iterator();
 
+        int index = 0;
         Node n1 = I1.next();
         Node n2 = I2.next();
-        int index = 0;
-        while (I1.hasNext() && I2.hasNext()) {
+        while (I1.hasNext() && n1.compareTo(n2)<=0 || I2.hasNext() && n2.compareTo(n1)<=0) {
+            if(n1 == n2 ){
+                out.add(index,n1);
+                index++;
+            }
             int comparison = n1.compareTo(n2);
             if (comparison < 0) {
                 n1 = I1.next();
             } else if (comparison > 0) {
                 n2 = I2.next();
             } else {
-                out.add(index, n1);
-                n1 = I1.next();
-                n2 = I2.next();
-                index++;
+                if(I1.hasNext()){
+                n1 = I1.next();}
+                if(I2.hasNext()) {
+                    n2 = I2.next();
+                }
             }
+
         }
+
         return out;
     }
 
