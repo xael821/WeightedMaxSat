@@ -6,8 +6,7 @@ package iset;
 
 import java.util.*;
 
-import iset.OpenList.*;
-import iset.RestoreList.RestoreList;
+import iset.RestoreList.*;
 import main.S;
 
 public class IndependentSet {
@@ -38,7 +37,7 @@ public class IndependentSet {
         System.out.println("best: " + I.best);
         I.printSolution(I.bestSolution);
 
-        System.out.println("valid independent set: "+I.checkIndependence(I.bestSolution, g));
+        System.out.println("valid independent set: " + I.checkIndependence(I.bestSolution, g));
     }
 
     public void solve(Graph g) {
@@ -127,51 +126,35 @@ public class IndependentSet {
     }
 
     private void solve(LinkedList<Node> solution, RestoreList<Node> complement, Graph g) {
-        //if the best this could be isn't an improvement, return
 
-        //if we add n to the solution, we can remove n and all its neighbors from complement. All the neighbors maybe could be stuck in a list that's the method's
-        //return value which are then added back.
-        //better: return a hashmap of openlist nodes which allow you to add them all back each in constant time.
         boolean condition = best < upperBound(solution, complement, g);
-
-        //storing this as it changes.. it should be the same by the time it's checked but want to be sure.
 
         if (condition) {
 
-            //special iterator that allows modification during traversal
+            //iterator that allows modification during traversal
             Iterator<Node> complementNodes = complement.iterator();
             while (complementNodes.hasNext()) {
                 Node next = complementNodes.next();
-                boolean independent = true;
 
-                for (Node current : solution) {
-                    if (g.edgeExists(current, next)) {
-                        System.out.println("you needed me");
-                        independent = false;
-                        break;
-                    }
+                solution.addLast(next);
+                makeRestore(next, complement, g);
+
+                //if the actual current weight of this solution is a best, save it
+                //we need to check here because the solution has been modified but the complement could be size 0,
+                //meaning it may not recurse. Thus, checking at the start of the method won't work.
+                double solutionWeight = solutionWeight(solution);
+                if (solutionWeight > best) {
+                    best = solutionWeight(solution);
+                    bestSolution.clear();
+                    bestSolution.addAll(solution);
                 }
 
-                if (independent) {
-                    solution.addLast(next);
-                    makeRestore(next, complement, g);
-
-                    //if the actual current weight of this solution is a best, save it
-                    //we need to check here because the solution has been modified but the complement could be size 0,
-                    //meaning it may not recurse. Thus, checking at the start of the method won't work.
-                    double solutionWeight = solutionWeight(solution);
-                    if (solutionWeight > best) {
-                        best = solutionWeight(solution);
-                        bestSolution.clear();
-                        bestSolution.addAll(solution);
-                    }
-
-                    if (complement.size() > 0) {
-                        solve(solution, complement, g);
-                    }
-                    complement.rollback();
-                    solution.removeLast();
+                if (complement.size() > 0) {
+                    solve(solution, complement, g);
                 }
+                complement.rollback();
+                solution.removeLast();
+
             }
         }
 
@@ -187,8 +170,8 @@ public class IndependentSet {
         if (neighbors == null) {
             System.out.println("failed for " + remove);
         }
-     //   ArrayList<Node> intersection = intersection(neighbors, complement);
-       // ArrayList<Node> intersection2= intersection2(neighbors, complement);
+        //   ArrayList<Node> intersection = intersection(neighbors, complement);
+        // ArrayList<Node> intersection2= intersection2(neighbors, complement);
         complement.openTransaction();
         for (Node n : neighbors) {
             complement.remove(n);
@@ -196,59 +179,6 @@ public class IndependentSet {
         complement.remove(remove);
 
         complement.closeTransaction();
-    }
-
-    private ArrayList<Node> intersection2(List<Node> L1, RestoreList<Node> L2){
-        ArrayList<Node> out = new ArrayList<>();
-        for(Node n : L2){
-            if(L1.contains(n)){
-                out.add(n);
-            }
-        }
-        return out;
-    }
-
-    //assumes unique values in each list
-    private ArrayList<Node> intersection(List<Node> L1, RestoreList<Node> L2) {
-        //intersection not smaller than the smaller list
-        System.out.println("intersection:");
-        ArrayList<Node> out = new ArrayList<>();
-
-        Iterator<Node> I1 = L1.iterator();
-        Iterator<Node> I2 = L2.iterator();
-
-        int index = 0;
-        Node n1 = I1.next();
-        Node n2 = I2.next();
-        while (I1.hasNext() && n1.compareTo(n2)<=0 || I2.hasNext() && n2.compareTo(n1)<=0) {
-            if(n1 == n2 ){
-                out.add(index,n1);
-                index++;
-            }
-            int comparison = n1.compareTo(n2);
-            if (comparison < 0) {
-                n1 = I1.next();
-            } else if (comparison > 0) {
-                n2 = I2.next();
-            } else {
-                if(I1.hasNext()){
-                n1 = I1.next();}
-                if(I2.hasNext()) {
-                    n2 = I2.next();
-                }
-            }
-
-        }
-
-        return out;
-    }
-
-    private void restore(HashMap<Node, OpenNode<Node>[]> restoreMap) {
-        OpenNode<Node>[] pair;
-        for (Node node : restoreMap.keySet()) {
-            pair = restoreMap.get(node);
-            pair[0].addNode(pair[1]);
-        }
     }
 
     private static void printSolution(Collection<Node> solution) {

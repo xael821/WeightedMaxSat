@@ -124,6 +124,10 @@ public class RestoreList<E> implements Iterable<E> {
         return new RLIterator<E>(this);
     }
 
+    public Iterator<E> iterator(E start) {
+        return new RLIterator<E>(this,start);
+    }
+
     public ArrayList<E> intersection(List<E> other) {
         ArrayList<E> out = new ArrayList<E>(size);
         if (size > 0) {
@@ -205,6 +209,15 @@ class RLIterator<E> implements Iterator<E> {
             invalid = true;
         } else {
             current = list.dummy.next;
+        }
+    }
+
+    RLIterator(RestoreList list, E start){
+        this(list);
+        while(hasNext()){
+            if(start==next()){
+                break;
+            }
         }
     }
 
