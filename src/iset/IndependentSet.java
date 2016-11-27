@@ -27,7 +27,7 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 10;
+        int n = 40;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
@@ -38,7 +38,7 @@ public class IndependentSet {
         System.out.println("best: " + I.best);
         I.printSolution(I.bestSolution);
 
-        System.out.println(I.checkIndependence(I.bestSolution, g));
+        System.out.println("valid independent set: "+I.checkIndependence(I.bestSolution, g));
     }
 
     public void solve(Graph g) {
@@ -138,14 +138,6 @@ public class IndependentSet {
 
         if (condition) {
 
-            //if the actual current weight of this solution is a best, save it
-            double solutionWeight = solutionWeight(solution);
-            if (solutionWeight > best) {
-                best = solutionWeight(solution);
-                bestSolution.clear();
-                bestSolution.addAll(solution);
-            }
-
             //special iterator that allows modification during traversal
             Iterator<Node> complementNodes = complement.iterator();
             while (complementNodes.hasNext()) {
@@ -163,12 +155,22 @@ public class IndependentSet {
                 if (independent) {
                     solution.addLast(next);
                     makeRestore(next, complement, g);
+
+                    //if the actual current weight of this solution is a best, save it
+                    //we need to check here because the solution has been modified but the complement could be size 0,
+                    //meaning it may not recurse. Thus, checking at the start of the method won't work.
+                    double solutionWeight = solutionWeight(solution);
+                    if (solutionWeight > best) {
+                        best = solutionWeight(solution);
+                        bestSolution.clear();
+                        bestSolution.addAll(solution);
+                    }
+
                     if (complement.size() > 0) {
                         solve(solution, complement, g);
                     }
-
-                    solution.removeLast();
                     complement.rollback();
+                    solution.removeLast();
                 }
             }
         }
@@ -185,9 +187,10 @@ public class IndependentSet {
         if (neighbors == null) {
             System.out.println("failed for " + remove);
         }
-        ArrayList<Node> intersection = intersection(neighbors, complement);
+     //   ArrayList<Node> intersection = intersection(neighbors, complement);
+       // ArrayList<Node> intersection2= intersection2(neighbors, complement);
         complement.openTransaction();
-        for (Node n : intersection) {
+        for (Node n : neighbors) {
             complement.remove(n);
         }
         complement.remove(remove);

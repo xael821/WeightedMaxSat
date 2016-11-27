@@ -82,6 +82,10 @@ public class RestoreList<E> implements Iterable<E> {
     public void remove(E target) {
         //this is the node that pointed to the node that just got removed
         RemovalPair<E> removed = dummy.removeFromSuccessors(target);
+        //don't try to remove if it's not in the list
+        if(removed==null){
+            return;
+        }
         currentTransaction.put(removed.n1, removed.n2);
         restoreStack.push(currentTransaction);
         currentTransaction = new HashMap<>(1);
