@@ -18,6 +18,8 @@ public class RestoreList<E> implements Iterable<E> {
     private int size;
     private int currentTxnSize = 0;
 
+    boolean activeTransaction = false;
+
     public static void main(String[] args) {
         int n = 10;
         Integer[] arr = new Integer[n];
@@ -70,27 +72,45 @@ public class RestoreList<E> implements Iterable<E> {
         }
     }
 
+    public boolean contains(E e){
+        return dummy.contains(e);
+    }
+
     public void openTransaction() {
-        currentTxnSize = 0;
+        if(activeTransaction){
+            throw new RuntimeException("open transaction already exists");
+        }else {
+            currentTxnSize = 0;
+            activeTransaction = true;
+        }
     }
 
     //currentTransaction is pushed onto the stack, currentTransaction set to a new, empty map
     public void closeTransaction() {
-        txnSizeStack.push(currentTxnSize);
+        if(activeTransaction) {
+            txnSizeStack.push(currentTxnSize);
+            activeTransaction = false;
+        }else{
+            throw new RuntimeException("no active transaction to close");
+        }
     }
 
     public void remove(E target) {
-        //this is the node that pointed to the node that just got removed
-        RemovalPair<E> removed = dummy.removeFromSuccessors(target);
-        //don't try to remove if it's not in the list
-        if(removed==null){
-            return;
+        if(activeTransaction) {
+            //this is the node that pointed to the node that just got removed
+            RemovalPair<E> removed = dummy.removeFromSuccessors(target);
+            //don't try to remove if it's not in the list
+            if (removed == null) {
+                return;
+            }
+            currentTransaction.put(removed.n1, removed.n2);
+            restoreStack.push(currentTransaction);
+            currentTransaction = new HashMap<>(1);
+            currentTxnSize++;
+            size--;
+        }else{
+            throw new RuntimeException("no active transaction to close");
         }
-        currentTransaction.put(removed.n1, removed.n2);
-        restoreStack.push(currentTransaction);
-        currentTransaction = new HashMap<>(1);
-        currentTxnSize++;
-        size--;
     }
 
     public void rollback() {
@@ -120,12 +140,16 @@ public class RestoreList<E> implements Iterable<E> {
         return size;
     }
 
+    public RLIterator<E> rlIterator() {
+        return new RLIterator<E>(this);
+    }
+
     public Iterator<E> iterator() {
         return new RLIterator<E>(this);
     }
 
-    public Iterator<E> iterator(E start) {
-        return new RLIterator<E>(this,start);
+    public RLIterator<E> rlIterator(RLHandle start) {
+        return new RLIterator<E>(this, start);
     }
 
     public ArrayList<E> intersection(List<E> other) {
@@ -146,7 +170,6 @@ public class RestoreList<E> implements Iterable<E> {
 class RLNode<E> {
     RLNode<E> next = null;
     E value = null;
-
     public RLNode() {
     }
 
@@ -162,6 +185,13 @@ class RLNode<E> {
             return next.get(i - 1);
         }
         return null;
+    }
+
+    boolean contains(E target){
+        if(value!=null && value == target){
+            return true;
+        }
+        return next.contains(target);
     }
 
     void insertNext(RLNode<E> node) {
@@ -196,42 +226,4 @@ class RemovalPair<E> {
         this.n1 = n1;
         this.n2 = n2;
     }
-}
-
-class RLIterator<E> implements Iterator<E> {
-    RLNode<E> current;
-    boolean invalid = false;
-
-    RLIterator(RestoreList list) {
-        if (list.dummy == null) {
-            invalid = true;
-        } else if (list.dummy.next == null) {
-            invalid = true;
-        } else {
-            current = list.dummy.next;
-        }
-    }
-
-    RLIterator(RestoreList list, E start){
-        this(list);
-        while(hasNext()){
-            if(start==next()){
-                break;
-            }
-        }
-    }
-
-    public E next() {
-        E out = current.value;
-        current = current.next;
-        return out;
-    }
-
-    public boolean hasNext() {
-        if (invalid) {
-            return false;
-        }
-        return current != null;
-    }
-
 }

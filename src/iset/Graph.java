@@ -17,8 +17,17 @@ class Graph {
         edgeLists = new HashMap<>();
     }
 
+    public void add(String nodeIdentifier) {
+        if (!nodes.containsKey(nodeIdentifier)) {
+            Node n = new Node(nodeIdentifier);
+            nodes.put(nodeIdentifier, n);
+            edgeLists.put(n,new LinkedList<>());
+            edgeSets.put(n,new HashSet<>());
+        }
+    }
+
     public void add(String u, String v) {
-        if(u.equals(v)){
+        if (u.equals(v)) {
             return;
         }
         Node U, V;
@@ -49,8 +58,8 @@ class Graph {
         }
     }
 
-    public void sortEdgeLists(){
-        for(Node n : edgeLists.keySet()){
+    public void sortEdgeLists() {
+        for (Node n : edgeLists.keySet()) {
             Node[] arr = edgeLists.get(n).toArray(new Node[0]);
             Arrays.sort(arr);
             edgeLists.put(n, Arrays.asList(arr));
@@ -71,12 +80,12 @@ class Graph {
         return out;
     }
 
-    public Node[] nodeArray(){
+    public Node[] nodeArray() {
         return nodes.values().toArray(new Node[0]);
     }
 
     public boolean edgeExists(Node node1, Node node2) {
-        if(edgeSets.get(node1).contains(node2) != edgeSets.get(node2).contains(node1)){
+        if (edgeSets.get(node1).contains(node2) != edgeSets.get(node2).contains(node1)) {
             System.out.println("!!!!!!!!11");
         }
         return edgeSets.get(node1).contains(node2);
@@ -107,11 +116,16 @@ class Node implements Comparable<Node> {
         this(identifier, 1);
     }
 
-    public int compareTo(Node other){
+    public boolean equals(Object other) {
+        Node otherNode = (Node) other;
+        return otherNode.identifier.equals(identifier);
+    }
+
+    public int compareTo(Node other) {
         return identifier.compareTo(other.identifier);
     }
 
-    public String toString(){
+    public String toString() {
         return identifier;
     }
 }

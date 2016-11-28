@@ -26,11 +26,12 @@ public class IndependentSet {
     public static void main(String[] args) {
         IndependentSet I = new IndependentSet();
         Graph g = new Graph();
-        int n = 40;
+        int n = 125;
         int mMax = 2 * n * (int) Math.sqrt(n);
         Random r = new Random(0);
         for (int i = 0; i < mMax; i++) {
             g.add(r.nextInt(n) + "", r.nextInt(n) + "");
+          //  g.add(r.nextInt(n) + "");
         }
         I.solve(g);
         System.out.println(I.bestSolution.size());
@@ -68,7 +69,7 @@ public class IndependentSet {
         Arrays.sort(nodeArr);
         RestoreList<Node> complement = new RestoreList<>(nodeArr);
 
-        solve(new LinkedList<>(), complement, g);
+        solve(new LinkedList<>(), complement, g, null);
         System.out.println("time(ms): " + (System.currentTimeMillis() - time));
     }
 
@@ -125,18 +126,23 @@ public class IndependentSet {
         return max;
     }
 
-    private void solve(LinkedList<Node> solution, RestoreList<Node> complement, Graph g) {
-
-        boolean condition = best < upperBound(solution, complement, g);
-
+    //complement changes between recursive levels, but it will be the same before and after any single invocation
+    private void solve(LinkedList<Node> solution, RestoreList<Node> complement, Graph g, RLHandle<Node> handle) {
+        boolean condition = true;//best < upperBound(solution, complement, g);
+      /*  LinkedList<Node> backup = new LinkedList<>();
+        for(Node n: complement){
+            backup.add(n);
+        }
+*/
         if (condition) {
 
             //iterator that allows modification during traversal
-            Iterator<Node> complementNodes = complement.iterator();
+            RLIterator<Node> complementNodes = complement.rlIterator();
+            int i = 0;
             while (complementNodes.hasNext()) {
                 Node next = complementNodes.next();
-
                 solution.addLast(next);
+               // printSolution(solution);
                 makeRestore(next, complement, g);
 
                 //if the actual current weight of this solution is a best, save it
@@ -150,14 +156,33 @@ public class IndependentSet {
                 }
 
                 if (complement.size() > 0) {
-                    solve(solution, complement, g);
+                    solve(solution, complement, g, complementNodes.handle());
                 }
+                //rolling back the changes made in makeRestore
                 complement.rollback();
+                complement.openTransaction();
+                complement.remove(next);
+                complement.closeTransaction();
+                i++;
                 solution.removeLast();
-
+            }
+            for(int j = 0; j<i;j++){
+                complement.rollback();
+            }
+        }
+        /*
+        for(Node n:complement){
+            if(!backup.contains(n)){
+                System.out.println("new item in complement");
             }
         }
 
+        for(Node n: backup){
+            if(!complement.contains(n)){
+                System.out.println("complement missing element");
+            }
+        }
+        */
     }
 
     /*
